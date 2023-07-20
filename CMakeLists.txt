@@ -90,7 +90,7 @@ if (CMAKE_CXX_COMPILER_ID MATCHES "Clang" OR CMAKE_CXX_COMPILER_ID MATCHES "GNU"
     if(NOT XEUS_CPP_EMSCRIPTEN_WASM_BUILD)
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wunused-parameter -Wextra -Wreorder")
     endif()
-    
+
 
     CHECK_CXX_COMPILER_FLAG("-std=c++17" HAS_CPP_17_FLAG)
     if (HAS_CPP_17_FLAG)
@@ -190,7 +190,7 @@ macro(xeus_cpp_set_kernel_options target_name)
         find_package(Threads)
         target_link_libraries(${target_name} PRIVATE ${CMAKE_THREAD_LIBS_INIT})
     endif()
-    
+
 endmacro()
 
 # Common macro for shared and static library
@@ -211,7 +211,7 @@ macro(xeus_cpp_create_target target_name linkage output_name)
                           SOVERSION ${XEUS_CPP_VERSION_MAJOR}
                           OUTPUT_NAME "lib${output_name}")
 
-    target_compile_definitions(${target_name} PUBLIC "XEUS_CPP_EXPORTS")
+    target_compile_definitions(${target_name} PUBLIC XEUS_CPP_EXPORTS __STDC_FORMAT_MACROS)
 
     target_compile_features(${target_name} PRIVATE cxx_std_17)
 
@@ -236,7 +236,7 @@ macro(xeus_cpp_create_target target_name linkage output_name)
         find_package(Threads) # TODO: add Threads as a dependence of xeus-static?
         target_link_libraries(${target_name} PRIVATE ${CMAKE_THREAD_LIBS_INIT})
     endif()
-    
+
 endmacro()
 
 # xeus-cpp-headers
